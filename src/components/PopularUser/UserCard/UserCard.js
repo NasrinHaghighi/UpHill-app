@@ -1,24 +1,46 @@
 import React from 'react'
-import {UserCardContainer,Top,Main,Middel, Bottom,ImageDiv,Name, Email, Followers, FollowersNum, Tag} from './styles'
-
+import {UserCardContainer, Box, HoverBox,Top,Main,Middel,ImageDiv,Name, Email, Followers, FollowersNum, Tag, Info, Open, StyledLink} from './styles'
+import { Link } from 'react-router-dom'
 import {HiOutlineUser} from 'react-icons/hi'
+import StarredRepo from './StarredRepo/StarredRepo'
 
+function UserCard({user}) {
+  //console.log(user)
+const {avatar, login,followers,starred, profileUrl } =user
 
-function UserCard() {
   return (
     <UserCardContainer>
+      <Box>
         <Top>
-            <Main></Main>
-            <ImageDiv></ImageDiv>
+            <Main bg={avatar}></Main>
+            <ImageDiv bg={avatar}>         
+            </ImageDiv>
         </Top>
       
-        <Middel>
-            <Name>nasrin</Name>
-            <Email>nasrin&gmail.com</Email>
-            <Followers><HiOutlineUser /> <FollowersNum>528</FollowersNum> <Tag>Followers</Tag></Followers>
-            <Bottom>22</Bottom>
+        <Middel hover>
+            <Name>{login}</Name>
+            <Email>{login}@gmail.com</Email>
+            <Followers><HiOutlineUser />
+             <FollowersNum>{followers}</FollowersNum> 
+             <Tag>Followers</Tag>
+             </Followers>
+            <StarredRepo login={login}/>
         </Middel>
+        </Box>
+        <HoverBox>
+         <ImageDiv bg={avatar} hover></ImageDiv>
+        <Info>
+        <Name>{login}</Name>
+        <Email>{login}@gmail.com</Email>
+        <Followers hover><HiOutlineUser />
+             <FollowersNum>{followers}</FollowersNum> 
+             <Tag>Followers</Tag>
+             </Followers>
+             <Open><StyledLink to={profileUrl}>Open Profile</StyledLink></Open>
+        </Info>
         
+            
+        </HoverBox>
     </UserCardContainer>
   )
 }

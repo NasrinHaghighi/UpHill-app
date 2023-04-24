@@ -3,6 +3,7 @@ import axios from 'axios'
 import {PopularUsersConatiner} from './styles'
 import UserCard from './UserCard/UserCard'
 const rootUrl='http:///api.github.com'
+const token = process.env.REACT_APP_GITHUB_TOKEN;
 
 const arr=[1,2, 3]
 function PopularUser() {
@@ -11,21 +12,33 @@ function PopularUser() {
         const fetchUsers = async () => {
           try {
             const response = await axios.get(
-              "https://api.github.com/search/users?q=created:2023-03-01..2023-03-31&sort=followers&order=desc&per_page=3"
+              "https://api.github.com/search/users?q=created:2023-03-01..2023-03-31&sort=followers&order=desc&per_page=3",{
+                headers: {
+                  Authorization: `Bearer ${token}`
+                }
+              }
             );
+            
             const userLogins = response.data.items.map((item) => item.login);
             const userPromises = userLogins.map((login) =>
-              axios.get(`https://api.github.com/users/${login}`)
+              axios.get(`https://api.github.com/users/${login}`,{  headers: {
+                Authorization: `Bearer ${token}`
+              }})
             );
             const userResponses = await Promise.all(userPromises);
+            //console.log(userResponses)
             const fetchedUsers = userResponses.map((response) => ({
+              id:response.data.id,
+              profileUrl:response.data.html_url,
+              avatar:response.data.avatar_url,
               login: response.data.login,
               followers: response.data.followers,
               created_at: response.data.created_at,
-              starred_url:response.data.starred_url
+              starred:response.data.starred_url
 
 
             }));
+            //console.log(response.data)
             setUsers(fetchedUsers);
           } catch (error) {
             console.error(error);
@@ -35,12 +48,12 @@ function PopularUser() {
         fetchUsers();
       }, []);
 
-      console.log(users)
+      //console.log(users)
       return (
 
         <PopularUsersConatiner>
-{arr.map((a)=>{
-    return <UserCard key={a}/>
+{users.map((user)=>{
+    return <UserCard key={user?.id} user={user}/>
 })}
         </PopularUsersConatiner>
        
