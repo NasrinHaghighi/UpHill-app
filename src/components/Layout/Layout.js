@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react';
-//import Header from './Header/Header';
+import Header from '../Header/Header';
 
 import {MainContainer, InnerContainer, Main} from './styles';
 
@@ -13,9 +13,10 @@ const Layout =({children}) =>{
     return(
         <>
         <MainContainer>
+        <Header />  
       <InnerContainer>
  
-             {/* <Header />  */}
+            
         <Main>{children}</Main>
     
       </InnerContainer>

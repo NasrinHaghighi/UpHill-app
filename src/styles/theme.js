@@ -7,4 +7,5 @@ export const themes = {
     border:'#1d42a2',
  blueText:"#5571b9",
  hoverBg:"#464353",
+
     };

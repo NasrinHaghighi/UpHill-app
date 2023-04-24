@@ -1,24 +1,28 @@
-import React ,{useEffect, useState}from 'react'
-import axios from 'axios'
-import {PopularUsersConatiner, MainTitle} from './styles'
-import UserCard from './UserCard/UserCard'
-const rootUrl='http:///api.github.com'
+import React,{useEffect,useState} from 'react'
+import axios from 'axios';
+
+import {PopularUsersConatiner, MainTitle} from '../PopularUser/styles'
+import UserCard from '../PopularUser/UserCard/UserCard'
+
+
 const token = process.env.REACT_APP_GITHUB_TOKEN;
 
 
-function PopularUser() {
-    const [users, setUsers] =useState([])
+function ActiveUser() {
+    const [users, setUsers] = useState([]);
+
+ 
     useEffect(() => {
         const fetchUsers = async () => {
           try {
             const response = await axios.get(
-              "https://api.github.com/search/users?q=created:2023-03-01..2023-03-31&sort=followers&order=desc&per_page=3",{
+                `https://api.github.com/search/users?q=created:>${getLastMonth()}&sort=repositories&order=desc`,{
                 headers: {
                   Authorization: `Bearer ${token}`
                 }
               }
             );
-            
+
             const userLogins = response.data.items.map((item) => item.login);
             const userPromises = userLogins.map((login) =>
               axios.get(`https://api.github.com/users/${login}`,{  headers: {
@@ -44,27 +48,27 @@ function PopularUser() {
             console.error(error);
           }
         };
-    
-          fetchUsers();
+
+        // fetchUsers();
       }, []);
 
-      //console.log(users)
-      return (
+    const getLastMonth = () => {
+      const date = new Date();
+      date.setMonth(date.getMonth() - 1);
+      return date.toISOString().split('T')[0];
+    };
+    console.log(users)
+  return (
 
-        <PopularUsersConatiner>
-          <MainTitle>Terednding Users</MainTitle>
-     {users.map((user)=>{
-    return <UserCard key={user?.id} user={user}/>
-        })}
-        </PopularUsersConatiner>
-       
-      )
-    
+
+    <PopularUsersConatiner>
+    <MainTitle>Most Active Users</MainTitle>
+{/* {users.map((user)=>{
+return <UserCard key={user?.id} user={user}/>
+  })} */}
+  </PopularUsersConatiner>
+ 
+  )
 }
 
-export default PopularUser
-
-
-
- 
-        
+export default ActiveUser
