@@ -10,7 +10,7 @@ const token = process.env.REACT_APP_GITHUB_TOKEN;
 
 
 
-function StarredRepo({login}) {
+function StarredUserRepo({login}) {
 const year = new Date().getFullYear() - 1;
 
 /*fetch the repositories created by a user*/
@@ -41,7 +41,7 @@ useEffect(() => {
   )
 }
 
-export default StarredRepo
+export default StarredUserRepo
 
 
 

@@ -5,7 +5,7 @@ export const RepoContainer=styled.div`
 border-radius: 10px;
 padding: 14px 10px;
 border: 2px solid ${props=>props.theme.border};
-border-left: 5px solid ${props=>props.theme.border};
+border-left: 6px solid ${props=>props.theme.border};
 `
 
 export const Top=styled.div`

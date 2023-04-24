@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const HeaderContainer=styled.div`
 background-color: ${props=>props.theme.fontColortitle};
-padding: 15px 200px;
+padding: 15px 250px;
 display: flex;
 justify-content: space-between;
 align-items: center;

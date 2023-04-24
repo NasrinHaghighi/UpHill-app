@@ -3,10 +3,15 @@ import styled from 'styled-components';
 
 export const PopularUsersConatiner=styled.div`
 
-display: flex;
-justify-content: center;
-grid-row-gap: 0px;
+margin: 0 auto;
 
+
+`
+export const Box=styled.div`
+display: flex;
+justify-content: space-between;
+grid-row-gap: 0px;
+margin-top: 50px;
 `
 
 export const MainTitle=styled.div`

@@ -22,7 +22,7 @@ export const UserCardContainer =styled.div`
 text-align: center;
 box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 border-radius: 8px;
-width: 350px;
+width: 400px;
 margin: 0 30px;
 background-color: ${props=>props.theme.cardBg};
 position: relative;
