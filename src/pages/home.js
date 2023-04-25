@@ -8,7 +8,7 @@ function Home() {
   return (
     <>
     <PopularUser />  
-    {/* <ActiveUser />    */}
+  {/* <ActiveUser />    */}
     <StaredRepo />
      <SearchUser />
     </>

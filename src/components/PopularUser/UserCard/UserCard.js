@@ -1,46 +1,74 @@
-import React from 'react'
+import React, {useState,useEffect} from 'react'
 import {UserCardContainer, Box, HoverBox,Top,Main,Middel,ImageDiv,Name, Email, Followers, FollowersNum, Tag, Info, Open, StyledLink} from './styles'
 import { Link } from 'react-router-dom'
 import {HiOutlineUser} from 'react-icons/hi'
 import StarredUserRepo from './StarredUserRepo/StarredUserRepo'
+import axios from 'axios'
 
-function UserCard({user}) {
-  //console.log(user)
-const {avatar, login,followers,starred, profileUrl } =user
+
+
+function UserCard({users}) {
+
+  const [usersinfo, setUsersinfo] = useState([]);
+  const [oneUser, setOneUser] =useState()
+  useEffect(() => {
+    // Replace `usernames` with your array of GitHub usernames
+   
+
+    const fetchUserData = async () => {
+      try {
+        const userRequests = users?.map((u) =>
+          axios.get(`https://api.github.com/users/${u}`)
+        )
+        const responses = await Promise.all(userRequests);
+        const userData = responses.map((response) => response.data);
+         //setUsersinfo(userData)
+         const unique=userData.map((m)=>setOneUser(m))
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+ //
+ console.log(oneUser)
 
   return (
+  
     <UserCardContainer>
+        <Main></Main>
       <Box>
         <Top>
-            <Main bg={avatar}></Main>
-            <ImageDiv bg={avatar}>         
+            <Main bg={oneUser?.avatar_url}></Main>
+             <ImageDiv bg={oneUser?.avatar_url}>         
             </ImageDiv>
-        </Top>
+         </Top>
       
         <Middel hover>
-            <Name>{login}</Name>
-            <Email>{login}@gmail.com</Email>
+            <Name>{oneUser?.login}</Name>
+            <Email>{oneUser?.login}@gmail.com</Email>
             <Followers><HiOutlineUser />
-             <FollowersNum>{followers}</FollowersNum> 
-             <Tag>Followers</Tag>
+              <FollowersNum>{oneUser?.followers}</FollowersNum> 
+              <Tag>Followers</Tag>
              </Followers>
-            <StarredUserRepo login={login}/>
+              {/* <StarredUserRepo login={oneUser?.login}/> */}
         </Middel>
-        </Box>
-        <HoverBox>
-         <ImageDiv bg={avatar} hover></ImageDiv>
+         </Box>
+         {/* <HoverBox>
+          <ImageDiv bg={avatar} hover></ImageDiv>
         <Info>
         <Name>{login}</Name>
-        <Email>{login}@gmail.com</Email>
-        <Followers hover><HiOutlineUser />
-             <FollowersNum>{followers}</FollowersNum> 
-             <Tag>Followers</Tag>
+         <Email>{login}@gmail.com</Email>
+         <Followers hover><HiOutlineUser />
+              <FollowersNum>{followers}</FollowersNum> 
+              <Tag>Followers</Tag>
              </Followers>
-             <Open><StyledLink to={profileUrl}>Open Profile</StyledLink></Open>
-        </Info>
+              <Open><StyledLink to={profileUrl}>Open Profile</StyledLink></Open>
+      </Info>
         
             
-        </HoverBox>
+       </HoverBox>  */}
     </UserCardContainer>
   )
 }

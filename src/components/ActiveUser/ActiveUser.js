@@ -16,18 +16,13 @@ function ActiveUser() {
         const fetchUsers = async () => {
           try {
             const response = await axios.get(
-                `https://api.github.com/search/users?q=created:>${getLastMonth()}&sort=repositories&order=desc`,{
-                headers: {
-                  Authorization: `Bearer ${token}`
-                }
-              }
+                `https://api.github.com/search/users?q=created:>${getLastMonth()}&sort=repositories&order=desc`
+              
             );
-
+//console.log(response.data.items)
             const userLogins = response.data.items.map((item) => item.login);
             const userPromises = userLogins.map((login) =>
-              axios.get(`https://api.github.com/users/${login}`,{  headers: {
-                Authorization: `Bearer ${token}`
-              }})
+              axios.get(`https://api.github.com/users/${login}`)
             );
             const userResponses = await Promise.all(userPromises);
             //console.log(userResponses)
@@ -49,7 +44,7 @@ function ActiveUser() {
           }
         };
 
-        // fetchUsers();
+         fetchUsers();
       }, []);
 
     const getLastMonth = () => {
@@ -63,9 +58,9 @@ function ActiveUser() {
 
     <PopularUsersConatiner>
     <MainTitle>Most Active Users</MainTitle>
-{/* {users.map((user)=>{
+ {users?.map((user)=>{
 return <UserCard key={user?.id} user={user}/>
-  })} */}
+  })} 
   </PopularUsersConatiner>
  
   )

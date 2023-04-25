@@ -32,11 +32,10 @@ useEffect(() => {
   //console.log(name)
   return (
     <RepoContainer>
-        <Top><Title>{userRepo[0]?.name?.length<15 ?userRepo[0]?.name: userRepo[0]?.name.substring(0,15)}</Title>
-         <Star><GiAlliedStar /><span>{userRepo[0]?.star
-}</span></Star> 
-        </Top>
-        <Bottom>{userRepo[0]?.description?.length<80 ? userRepo[0]?.description : userRepo[0]?.description.substring(0, 80)}</Bottom> 
+         {/* <Top><Title>{userRepo[0]?.name?.length<15 ?userRepo[0]?.name: userRepo[0]?.name.substring(0,15)}</Title>
+         <Star><GiAlliedStar /><span>{userRepo[0]?.stargazers_count}</span></Star> 
+        </Top> 
+         <Bottom>{userRepo[0]?.description?.length<80 ? userRepo[0]?.description : userRepo[0]?.description?.substring(0, 80)}</Bottom>  */}
     </RepoContainer>
   )
 }
