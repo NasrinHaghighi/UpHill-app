@@ -7,70 +7,39 @@ import axios from 'axios'
 
 
 
-function UserCard({users}) {
-
-  const [usersinfo, setUsersinfo] = useState([]);
-  const [oneUser, setOneUser] =useState()
-  useEffect(() => {
+function UserCard({user}) {
+//console.log(user)one user
+const [userInfo, setUserInfo] =useState([])
     // Replace `usernames` with your array of GitHub usernames
-   
-
-    const fetchUserData = async () => {
-      try {
-        const userRequests = users?.map((u) =>
-          axios.get(`https://api.github.com/users/${u}`)
-        )
-        const responses = await Promise.all(userRequests);
-        const userData = responses.map((response) => response.data);
-         //setUsersinfo(userData)
-         const unique=userData.map((m)=>setOneUser(m))
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchUserData();
-  }, []);
- //
- console.log(oneUser)
-
-  return (
+    
+    useEffect(() => {
+      axios.get(`https://api.github.com/users/${user}`)
+        .then(response => {
+          setUserInfo(response.data);
+        })
+        .catch(error => {
+          console.error(`Error getting user data for ${user}: ${error}`);
+        });
+    }, [user]);
   
-    <UserCardContainer>
-        <Main></Main>
-      <Box>
-        <Top>
-            <Main bg={oneUser?.avatar_url}></Main>
-             <ImageDiv bg={oneUser?.avatar_url}>         
-            </ImageDiv>
-         </Top>
-      
-        <Middel hover>
-            <Name>{oneUser?.login}</Name>
-            <Email>{oneUser?.login}@gmail.com</Email>
-            <Followers><HiOutlineUser />
-              <FollowersNum>{oneUser?.followers}</FollowersNum> 
-              <Tag>Followers</Tag>
-             </Followers>
-              {/* <StarredUserRepo login={oneUser?.login}/> */}
-        </Middel>
-         </Box>
-         {/* <HoverBox>
-          <ImageDiv bg={avatar} hover></ImageDiv>
-        <Info>
-        <Name>{login}</Name>
-         <Email>{login}@gmail.com</Email>
-         <Followers hover><HiOutlineUser />
-              <FollowersNum>{followers}</FollowersNum> 
-              <Tag>Followers</Tag>
-             </Followers>
-              <Open><StyledLink to={profileUrl}>Open Profile</StyledLink></Open>
-      </Info>
-        
-            
-       </HoverBox>  */}
-    </UserCardContainer>
+  
+  
+ //
+ console.log(userInfo.followers)
+
+ 
+const {name, email, followers, avatar_url} =userInfo
+console.log(avatar_url)
+  return (
+  <></>
+ 
   )
-}
+  }
 
 export default UserCard
+
+
+
+
+
+    

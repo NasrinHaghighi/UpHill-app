@@ -19,6 +19,7 @@ const [userRepo, setUserRepo] =useState([])
 useEffect(() => {
     const fetchUser = async () => {
       const response = await axios.get(`https://api.github.com/users/${login}/repos?per_page=100`);
+      
       const filteredRepos = response.data.filter(repo => new Date(repo.created_at) > year);
       const sortedRepos = filteredRepos.sort((a, b) => b.stargazers_count - a.stargazers_count);
   
@@ -28,14 +29,14 @@ useEffect(() => {
     fetchUser();
   }, [login]);
 
-  //const {name, stargazers_count:star, description:desc} =userRepo[0]
-  //console.log(name)
+  const {name, stargazers_count:star, description:desc} =userRepo[0]
+  
   return (
     <RepoContainer>
-         {/* <Top><Title>{userRepo[0]?.name?.length<15 ?userRepo[0]?.name: userRepo[0]?.name.substring(0,15)}</Title>
-         <Star><GiAlliedStar /><span>{userRepo[0]?.stargazers_count}</span></Star> 
+          <Top><Title>{name? name: ''}</Title>
+         <Star><GiAlliedStar /><span>{star}</span></Star> 
         </Top> 
-         <Bottom>{userRepo[0]?.description?.length<80 ? userRepo[0]?.description : userRepo[0]?.description?.substring(0, 80)}</Bottom>  */}
+         <Bottom>{desc ? desc : 'no descriotion'}</Bottom>   
     </RepoContainer>
   )
 }

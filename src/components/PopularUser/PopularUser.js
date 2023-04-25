@@ -14,9 +14,10 @@ function PopularUser() {
             const response = await axios.get(
               "https://api.github.com/search/users?q=created:2023-03-01..2023-03-31&sort=followers&order=desc&per_page=3"
             );
-          //console.log(response)ok
+          //console.log(response.data.item)
            //setUsers(response.data.item)
              const userLogins = response.data.items.map((item) => item.login);
+             //console.log(userLogins)['eddyonl', 'tnarrj', 'alexica32']
             setUsers(userLogins)
            } catch (error) {
             console.error(error);
@@ -25,14 +26,14 @@ function PopularUser() {
       fetchUsers();
       }, []);
 
-     
+     //console.log(users)3users
       return (
 
         <PopularUsersConatiner>
            <MainTitle>Terednding Users</MainTitle>
            <Box>
       {users?.map((user)=>{
-    return <UserCard key={user?.id} users={users}/>
+    return <UserCard key={user?.id} user={user}/>
         })}  
         </Box>
         </PopularUsersConatiner>
