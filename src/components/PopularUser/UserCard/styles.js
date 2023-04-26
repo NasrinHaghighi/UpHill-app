@@ -20,6 +20,7 @@ transition: all 0.3s ease-in-out;
 
 export const UserCardContainer =styled.div`
 text-align: center;
+
 box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 border-radius: 8px;
 width: 400px;

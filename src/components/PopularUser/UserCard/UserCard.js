@@ -25,13 +25,50 @@ const [userInfo, setUserInfo] =useState([])
   
   
  //
- console.log(userInfo.followers)
+ //console.log(userInfo.followers)ok
 
  
-const {name, email, followers, avatar_url} =userInfo
-console.log(avatar_url)
+const {name, email,login, followers, avatar_url,} =userInfo
+//console.log(avatar_url)
   return (
-  <></>
+  <>
+  <UserCardContainer>
+
+<Box>
+<Top>
+   <Main bg={avatar_url}></Main>
+    <ImageDiv bg={avatar_url}>         
+   </ImageDiv>
+</Top>
+
+<Middel hover>
+   <Name>{login}</Name>
+   <Email>{login}@gmail.com</Email>
+   <Followers><HiOutlineUser />
+     <FollowersNum>{followers}</FollowersNum> 
+     <Tag>Followers</Tag>
+    </Followers>
+      <StarredUserRepo user={user}/> 
+</Middel>
+</Box> 
+ <HoverBox>
+ <ImageDiv bg={avatar_url} hover></ImageDiv>
+<Info>
+<Name>{name}</Name>
+<Email>{name}@gmail.com</Email>
+<Followers hover><HiOutlineUser />
+     <FollowersNum>{followers}</FollowersNum> 
+     <Tag>Followers</Tag>
+    </Followers>
+     <Open><StyledLink >Open Profile</StyledLink></Open>
+</Info>
+
+   
+</HoverBox>  
+</UserCardContainer> 
+  
+  
+  </>
  
   )
   }

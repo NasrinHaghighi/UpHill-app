@@ -15,12 +15,13 @@ const colors = [
   ];
 
 function TopRepoitem({item, index}) {
+ const {name,stargazers_count:star, description} =item
   return (
    
         <Box bg={colors[index]}>
-        <Title>React</Title>
-        <Star><GiAlliedStar /><span>5454</span></Star>
-        <Desc>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo similique reprehenderit, sapiente nesciunt,.</Desc>
+        <Title>{name}</Title>
+        <Star><GiAlliedStar /><span>{star}</span></Star>
+        <Desc>{description}</Desc>
      </Box>
 
         

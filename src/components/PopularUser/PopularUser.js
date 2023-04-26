@@ -26,7 +26,7 @@ function PopularUser() {
       fetchUsers();
       }, []);
 
-     //console.log(users)3users
+     console.log(users)
       return (
 
         <PopularUsersConatiner>

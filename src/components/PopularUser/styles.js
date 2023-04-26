@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const PopularUsersConatiner=styled.div`
 
-margin: 0 auto;
+margin: 50px auto;
 
 
 `
@@ -19,6 +19,6 @@ text-align: left;
 color: ${props=>props.theme.fontColortitle};
 font-size: 32px;
 font-weight: 700;
-
+margin-bottom: 30px;
 width: 100%;
 `

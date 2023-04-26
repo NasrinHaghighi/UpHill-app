@@ -10,34 +10,39 @@ const token = process.env.REACT_APP_GITHUB_TOKEN;
 
 
 
-function StarredUserRepo({login}) {
-const year = new Date().getFullYear() - 1;
+function StarredUserRepo({user}) {
+
 
 /*fetch the repositories created by a user*/
 const [userRepo, setUserRepo] =useState([])
 
 useEffect(() => {
-    const fetchUser = async () => {
-      const response = await axios.get(`https://api.github.com/users/${login}/repos?per_page=100`);
+    const fetchRepo = async () => {
+      const response = await axios.get(`https://api.github.com/users/${user}/repos?sort=stargazers_count&direction=desc`);
       
-      const filteredRepos = response.data.filter(repo => new Date(repo.created_at) > year);
-      const sortedRepos = filteredRepos.sort((a, b) => b.stargazers_count - a.stargazers_count);
-  
-      setUserRepo(sortedRepos);
+      // const filteredRepos = response.data.filter(repo => new Date(repo.created_at) > year);
+      // const sortedRepos = filteredRepos.sort((a, b) => b.stargazers_count - a.stargazers_count);
+  //console.log(response)
+      setUserRepo(response.data[0]);
     };
 
-    fetchUser();
-  }, [login]);
+    fetchRepo();
+  }, [user]);
+ //console.log(userRepo)
 
-  const {name, stargazers_count:star, description:desc} =userRepo[0]
-  
+
+ 
+const {name, login, description:desc,stargazers_count:star }
+=userRepo
   return (
+   <>
     <RepoContainer>
-          <Top><Title>{name? name: ''}</Title>
-         <Star><GiAlliedStar /><span>{star}</span></Star> 
-        </Top> 
-         <Bottom>{desc ? desc : 'no descriotion'}</Bottom>   
-    </RepoContainer>
+           <Top><Title>{name}</Title>
+          <Star><GiAlliedStar /><span>{star}</span></Star> 
+         </Top> 
+          <Bottom>{desc?.length<100 ? desc : desc?.substring(0,100)}</Bottom>   
+     </RepoContainer> 
+     </>
   )
 }
 
