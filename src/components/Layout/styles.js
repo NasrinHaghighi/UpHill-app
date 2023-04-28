@@ -8,7 +8,7 @@ color:${props=>props.theme.fontColor};
 
 `
 export const InnerContainer =styled.div`
-margin: 0 250px;
+margin: 0 200px;
 min-height: 100vh;
     display: flex;
     flex-direction: column;

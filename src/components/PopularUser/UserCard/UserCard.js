@@ -1,17 +1,15 @@
 import React, {useState,useEffect} from 'react'
 import {UserCardContainer, Box, HoverBox,Top,Main,Middel,ImageDiv,Name, Email, Followers, FollowersNum, Tag, Info, Open, StyledLink} from './styles'
-import { Link } from 'react-router-dom'
 import {HiOutlineUser} from 'react-icons/hi'
 import StarredUserRepo from './StarredUserRepo/StarredUserRepo'
 import axios from 'axios'
 
 
-
+/*fetch user info by login name*/
 function UserCard({user}) {
 //console.log(user)one user
 const [userInfo, setUserInfo] =useState([])
-    // Replace `usernames` with your array of GitHub usernames
-    
+       
     useEffect(() => {
       axios.get(`https://api.github.com/users/${user}`)
         .then(response => {
@@ -24,11 +22,11 @@ const [userInfo, setUserInfo] =useState([])
   
   
   
- //
+ 
  //console.log(userInfo.followers)ok
 
  
-const {name, email,login, followers, avatar_url,} =userInfo
+const {name, email,login, followers, avatar_url,html_url} =userInfo
 //console.log(avatar_url)
   return (
   <>
@@ -51,6 +49,7 @@ const {name, email,login, followers, avatar_url,} =userInfo
       <StarredUserRepo user={user}/> 
 </Middel>
 </Box> 
+{/* HOVER BOX */}
  <HoverBox>
  <ImageDiv bg={avatar_url} hover></ImageDiv>
 <Info>
@@ -60,11 +59,12 @@ const {name, email,login, followers, avatar_url,} =userInfo
      <FollowersNum>{followers}</FollowersNum> 
      <Tag>Followers</Tag>
     </Followers>
-     <Open><StyledLink >Open Profile</StyledLink></Open>
+     <Open><StyledLink to={html_url}>Open Profile</StyledLink></Open>
 </Info>
 
    
 </HoverBox>  
+{/* HOVER BOX */}
 </UserCardContainer> 
   
   

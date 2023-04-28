@@ -3,19 +3,20 @@ import {StaredRepoContainer,Wrapper} from './styles'
 import {MainTitle} from '../PopularUser/styles'
 import axios from 'axios'
 import TopRepoitem from './TopRepoItem/TopRepoitem'
+import { lastYearDate } from '../../utiles'
 
 
 
-const arr=[1,2,3, 4]
 
 function StaredRepo() {
   const [topRepositories, setTopRepositories] = useState([]);
 
   useEffect(() => {
-   const lastYear= new Date(new Date().setFullYear(new Date().getFullYear() - 1));
+
    try {
     axios
-      .get(`https://api.github.com/search/repositories?q=created:2021-02-02&sort=stars&order=desc`)
+      .get(`https://api.github.com/search/repositories?q=created:>=${lastYearDate}&sort=stargazers_count
+      &order=desc`)
       .then((response) => {
          const repositories = response.data.items.slice(0, 4)
         setTopRepositories(repositories);

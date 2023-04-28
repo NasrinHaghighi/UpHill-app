@@ -9,10 +9,12 @@ import {UserTopic} from '../../features/searchTermSlice'
 
 function Header() {
 const dispatch=useDispatch()
-    const handelChange=debounce((e)=>{
-      const val =e.target.value
+
+    const handelChange = debounce((e)=>{
+      let val =e.target.value
       dispatch(UserTopic(val))
-    },1000)
+      val=''
+    },500)
   return (
     <HeaderContainer>
         <img src={UpHill} alt="Logo" />;

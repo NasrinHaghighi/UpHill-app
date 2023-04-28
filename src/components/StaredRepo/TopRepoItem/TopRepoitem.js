@@ -21,7 +21,7 @@ function TopRepoitem({item, index}) {
         <Box bg={colors[index]}>
         <Title>{name}</Title>
         <Star><GiAlliedStar /><span>{star}</span></Star>
-        <Desc>{description}</Desc>
+        <Desc>{description?.length<80 ?description : description?.substring(0, 80)}</Desc>
      </Box>
 
         

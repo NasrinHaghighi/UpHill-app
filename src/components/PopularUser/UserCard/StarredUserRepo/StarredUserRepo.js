@@ -5,24 +5,19 @@ import {RepoContainer,Top, Bottom,Title,Star} from './styles'
 import {GiAlliedStar} from 'react-icons/gi'
 import axios from 'axios';
 const rootUrl='http:///api.github.com'
-const token = process.env.REACT_APP_GITHUB_TOKEN;
 
 
 
 
+/*fetch user repos sort by number of stargazers_count desc*/
 function StarredUserRepo({user}) {
-
-
-/*fetch the repositories created by a user*/
 const [userRepo, setUserRepo] =useState([])
 
 useEffect(() => {
     const fetchRepo = async () => {
-      const response = await axios.get(`https://api.github.com/users/${user}/repos?sort=stargazers_count&direction=desc`);
+      const response = await axios.get(`${rootUrl}/users/${user}/repos?sort=stargazers_count&direction=desc`);
       
-      // const filteredRepos = response.data.filter(repo => new Date(repo.created_at) > year);
-      // const sortedRepos = filteredRepos.sort((a, b) => b.stargazers_count - a.stargazers_count);
-  //console.log(response)
+      
       setUserRepo(response.data[0]);
     };
 
@@ -32,15 +27,14 @@ useEffect(() => {
 
 
  
-const {name, login, description:desc,stargazers_count:star }
-=userRepo
+const {name, login, description:desc,stargazers_count:star } = userRepo
   return (
    <>
     <RepoContainer>
-           <Top><Title>{name}</Title>
+           <Top><Title>{login?.length<20 ? login: login?.substring(0,20)}</Title>
           <Star><GiAlliedStar /><span>{star}</span></Star> 
          </Top> 
-          <Bottom>{desc?.length<100 ? desc : desc?.substring(0,100)}</Bottom>   
+          <Bottom>{desc?.length<50 ? desc : desc?.substring(0,50)}</Bottom>   
      </RepoContainer> 
      </>
   )
@@ -48,22 +42,3 @@ const {name, login, description:desc,stargazers_count:star }
 
 export default StarredUserRepo
 
-
-
-        //const repositories = await response.json();
-       // console.log(response)
-        // let filteredRepositories = repositories?.filter(repo => new Date(repo.created_at).getFullYear() === year);
-        // setUserRepo(filteredRepositories)
-
-
-        // async function fetchUserRepositories(login) {
-        
-        //     const response = await fetch(`http://api.github.com/users/${login}/repos?per_page=100`,{
-        //         headers: {
-        //             Authorization: `Bearer ${token}`
-        //           }
-        //     });
-        //     const repositories = await response.json();
-        //     console.log(repositories)
-    
-        // }

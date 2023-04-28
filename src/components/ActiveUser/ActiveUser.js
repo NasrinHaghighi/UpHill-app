@@ -3,24 +3,19 @@ import axios from 'axios';
 
 import {PopularUsersConatiner, MainTitle,Box} from '../PopularUser/styles'
 import UserCard from '../PopularUser/UserCard/UserCard'
-
-
+import {lastMonthDate} from '../../utiles'
+const rootUrl='http:///api.github.com'
 const token = process.env.REACT_APP_GITHUB_TOKEN;
 
 
 function ActiveUser() {
     const [users, setUsers] = useState([]);
-    const getLastMonth = () => {
-      const date = new Date();
-      date.setMonth(date.getMonth() - 1);
-      return date.toISOString().split('T')[0];
-    };
- 
-    useEffect(() => {
+
+     useEffect(() => {
         const fetchUsers = async () => {
           try {
             const response = await axios.get(
-                `https://api.github.com/search/users?q=created:2023-01-01..2023-03-31&sort=repositories&order=desc&per_page=3`
+                `${rootUrl}/search/users?q=created:>=${lastMonthDate}&sort=repositories&order=desc&per_page=3`
              );
              const userLogins = response.data.items.map((item) => item.login);
              setUsers(userLogins)
@@ -35,7 +30,7 @@ function ActiveUser() {
       }, []);
 
  
-    console.log(users)
+    //console.log(users)['a','b','c']
   return (
 
 
@@ -43,7 +38,7 @@ function ActiveUser() {
     <MainTitle>Most Active Users</MainTitle>
     <Box>
     {users?.map((user)=>{
-    return <UserCard key={user?.id} user={user}/>
+    return <UserCard key={user.id} user={user}/>
         })} 
         </Box>
   </PopularUsersConatiner>

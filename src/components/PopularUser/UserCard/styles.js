@@ -67,7 +67,7 @@ background-size: 80px 80px;
 `
 
 export const Middel =styled.div`
-margin: 50px;
+margin: 65px;
 color: '${props=>props.theme.fontColortitle}';
 
 `
@@ -88,7 +88,7 @@ justify-content: center;
 align-items: center;
 /* color:  ${props=>props.theme.fontColortitle}; */
 
-border-bottom:  ${props=>props.hover ? 'none': '1px solid ${props=>props.theme.lightGray}'};
+border-bottom:  ${props=>props.hover ? 'none': '1px solid #9e98986c'};
 `
 export const FollowersNum =styled.span`
 margin: 0 6px 0 15px;
