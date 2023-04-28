@@ -30,7 +30,7 @@ function PopularUser() {
       return (
 
         <PopularUsersConatiner>
-           <MainTitle>Trednding Users</MainTitle>
+           <MainTitle>Trending Users</MainTitle>
            <Box>
       {users?.map((user)=>{
     return <UserCard key={user?.id} user={user}/>
