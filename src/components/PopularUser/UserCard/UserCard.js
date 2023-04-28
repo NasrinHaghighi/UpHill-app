@@ -7,7 +7,7 @@ import axios from 'axios'
 
 /*fetch user info by login name*/
 function UserCard({user}) {
-console.log(user)
+//console.log(user)
 const [userInfo, setUserInfo] =useState([])
        
     useEffect(() => {
