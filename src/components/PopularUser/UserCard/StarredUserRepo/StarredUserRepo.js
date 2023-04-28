@@ -16,8 +16,6 @@ const [userRepo, setUserRepo] =useState([])
 useEffect(() => {
     const fetchRepo = async () => {
       const response = await axios.get(`${rootUrl}/users/${user}/repos?sort=stargazers_count&direction=desc`);
-      
-      
       setUserRepo(response.data[0]);
     };
 
@@ -31,7 +29,7 @@ const {name, login, description:desc,stargazers_count:star } = userRepo
   return (
    <>
     <RepoContainer>
-           <Top><Title>{login?.length<20 ? login: login?.substring(0,20)}</Title>
+           <Top><Title>{name?.length<20 ? name: desc?.substring(0,20)}</Title>
           <Star><GiAlliedStar /><span>{star}</span></Star> 
          </Top> 
           <Bottom>{desc?.length<50 ? desc : desc?.substring(0,50)}</Bottom>   

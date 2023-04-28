@@ -4,10 +4,10 @@ import {MainTitle} from '../PopularUser/styles'
 import axios from 'axios'
 import TopRepoitem from './TopRepoItem/TopRepoitem'
 import { lastYearDate } from '../../utiles'
+const rootUrl='http:///api.github.com'
 
 
-
-
+/*fetch data for repos created -at last year sort by stars*/
 function StaredRepo() {
   const [topRepositories, setTopRepositories] = useState([]);
 
@@ -15,7 +15,7 @@ function StaredRepo() {
 
    try {
     axios
-      .get(`https://api.github.com/search/repositories?q=created:>=${lastYearDate}&sort=stargazers_count
+      .get(`${rootUrl}/search/repositories?q=created:>=${lastYearDate}&sort=stargazers_count
       &order=desc`)
       .then((response) => {
          const repositories = response.data.items.slice(0, 4)

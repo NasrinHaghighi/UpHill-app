@@ -3,28 +3,32 @@ import {PopularUsersConatiner, MainTitle,Box, Message} from '../PopularUser/styl
 import {  useSelector } from 'react-redux'
 import axios from 'axios'
 import UserCard from '../PopularUser/UserCard/UserCard'
+const rootUrl='http:///api.github.com'
 
+
+
+/*serach in users and repos by user search topic come from redux*/
+/*mix data from two request and make finall arr*/
+/*put search co. at the top and the visibility is conditinal*/ 
 
 function SearchUser() {
   const searchTopic=useSelector((state)=>state.searchTerm.userSearchTerm)
-  //console.log(searchTopic)
+  console.log(searchTopic)
 
 
-  const [users, setUsers] = useState([]);
-  const [reposs, setRepos] = useState([]);
+
  const [finall, setFinal] = useState([]);
   useEffect(() => {
    
     async function fetchUser() {
       try {
-        const repoResponse = await axios.get(`https://api.github.com/search/repositories?q=${searchTopic}`);
-        const userResponse = await axios.get(`https://api.github.com/search/users?q=${searchTopic}`);
+        const repoResponse = await axios.get(`${rootUrl}/search/repositories?q=${searchTopic}`);
+        const userResponse = await axios.get(`${rootUrl}/search/users?q=${searchTopic}`);
 
         const repos = repoResponse.data.items.map((item) => item.owner);
         const reposLogin=repos.map((item)=>item.login)
         const usersLogin = userResponse.data.items.map((item) => item.login);
-        setUsers(usersLogin)
-        setRepos(reposLogin)
+      
         setFinal([...reposLogin, ...usersLogin])
       
       } catch (error) {
@@ -36,10 +40,11 @@ function SearchUser() {
 
     fetchUser();
   }, [searchTopic]);
-  console.log(users)
-  console.log(reposs)
-console.log(finall)
+ 
+//console.log(finall)
   return (
+    <>
+    {searchTopic ?
     <PopularUsersConatiner>
      <MainTitle>Searched Users</MainTitle>
      <Box>
@@ -50,6 +55,8 @@ console.log(finall)
    <Message>search one item</Message>}
     </Box>  
   </PopularUsersConatiner>
+   : ''}
+  </>
   )
 }
 

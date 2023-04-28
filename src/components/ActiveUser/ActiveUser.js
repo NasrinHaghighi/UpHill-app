@@ -5,9 +5,9 @@ import {PopularUsersConatiner, MainTitle,Box} from '../PopularUser/styles'
 import UserCard from '../PopularUser/UserCard/UserCard'
 import {lastMonthDate} from '../../utiles'
 const rootUrl='http:///api.github.com'
-const token = process.env.REACT_APP_GITHUB_TOKEN;
 
 
+/*fetch data created after last month sort by more repos*/
 function ActiveUser() {
     const [users, setUsers] = useState([]);
 

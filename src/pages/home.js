@@ -7,10 +7,11 @@ import StaredRepo from '../components/StaredRepo/StaredRepo'
 function Home() {
   return (
     <>
+    <SearchUser />
     <PopularUser />  
    <ActiveUser />    
     <StaredRepo />
-     <SearchUser />
+     
     </>
   )
 }

@@ -8,9 +8,11 @@ import {UserTopic} from '../../features/searchTermSlice'
 
 
 function Header() {
+
 const dispatch=useDispatch()
 
     const handelChange = debounce((e)=>{
+     
       let val =e.target.value
       dispatch(UserTopic(val))
       val=''
